@@ -1,0 +1,10 @@
+MYMETA.json
+MYMETA.yml
+META.json
+META.yml
+Makefile
+Makefile.old
+blib/
+WWW-Shorten-5gp-*
+pm_to_blib
+
