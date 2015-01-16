@@ -6,6 +6,7 @@ MANIFEST.SKIP
 README.pod
 t/5gp.t
 t/changes.t
+t/compile.t
 t/kwalitee.t
 t/no404s.t
 t/pod.t
