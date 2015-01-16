@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mbeijen/WWW-Shorten-5gp.svg?branch=master)](https://travis-ci.org/mbeijen/WWW-Shorten-5gp)
+
 =head1 NAME
 
 WWW::Shorten::5gp - Perl interface to 5.gp - those are some short URLs!
