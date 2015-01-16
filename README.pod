@@ -20,7 +20,24 @@ a database of long URLs, each of which has a unique identifier.
 having a really tiny domain name. The domain name makes tinyurl.com
 seem to be not so tiny at all!
 
-=head1 Functions
+=head1 Command line usage
+
+You can use the shorten function from the command line:
+
+  $ shorten --service 5gp https://huntingbears.nl
+  http://5.gp/jfRX
+
+If you always want to use the 5gp service you can create a small
+configuration file in your home directory:
+
+  $ cat ~/.shortenrc
+  service = 5gp
+  $ shorten https://duckduckgo.com
+  http://5.gp/jfRY
+
+and if you'd like to make your short urls in your code, use the library.
+
+=head1 Library functions
 
 =head2 makeashorterlink
 

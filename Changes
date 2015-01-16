@@ -1,6 +1,7 @@
 Revision history for perl module WWW::Shorten::5gp
 
 1.01 2015-01-16
+ - Added documentation for offline usage to README.
  - Only perform tests against 5.gp if there is an internet connection.
 
 1.00 2015-01-14
