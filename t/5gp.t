@@ -1,3 +1,4 @@
+use LWP::Online ':skip_all';
 use Test::More;
 
 use_ok WWW::Shorten::5gp;

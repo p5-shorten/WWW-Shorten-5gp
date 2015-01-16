@@ -18,7 +18,8 @@ WriteMakefile(
     "JSON::PP" => 0,
   },
   "TEST_REQUIRES" => {
-    "Test::More" => "0.88",
+    "Test::More"  => "0.88",
+    "LWP::Online" => 1,
   },
   "VERSION_FROM" => "lib/WWW/Shorten/5gp.pm",
   "test" => {

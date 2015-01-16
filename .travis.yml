@@ -10,5 +10,5 @@ perl:
 before_install:
  - perlbrew install-cpanm -f
 install:
-  - cpanm --quiet --notest WWW::Shorten JSON::PP Test::Pod Test::Pod::Coverage Test::Kwalitee Test::Pod::No404s
+  - cpanm --quiet --notest WWW::Shorten JSON::PP LWP::Online Test::Pod Test::Pod::Coverage Test::Kwalitee Test::Pod::No404s
 script: "export EXTENDED_TESTING=1 && export RELEASE_TESTING=1 && perl Makefile.PL && make disttest"
