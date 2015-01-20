@@ -1,5 +1,8 @@
 Revision history for perl module WWW::Shorten::5gp
 
+1.02 2015-01-20
+ - Added more diagnostics to troubleshoot CPAN testers issues.
+
 1.01 2015-01-16
  - Added documentation for offline usage to README.
  - Added compile test so there is *something* to test when offline.

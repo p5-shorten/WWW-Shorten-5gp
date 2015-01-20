@@ -9,7 +9,7 @@ use JSON::PP;
 
 use base qw( WWW::Shorten::generic Exporter );
 our @EXPORT = qw( makeashorterlink makealongerlink );
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 my $service = 'http://5.gp/api/';
 
@@ -18,7 +18,10 @@ sub makeashorterlink ($) {
     my $ua = __PACKAGE__->ua();
     my $resp = $ua->get($service .'short?longurl=' . $url);
 
-    return if !$resp->is_success;
+    if (!$resp->is_success) {
+        carp $resp->status_line;
+        return;
+    }
     my $result = decode_json $resp->content;
     return $result->{url};
 }
@@ -31,7 +34,10 @@ sub makealongerlink ($) {
 
     my $resp = $ua->get($service . 'long?shorturl=' . $url);
 
-    return if !$resp->is_success;
+    if (!$resp->is_success) {
+        carp $resp->status_line;
+        return;
+    }
     my $result = decode_json $resp->content;
     return $result->{$url}->{target_url};
 }
