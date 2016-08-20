@@ -1,45 +1,45 @@
 package WWW::Shorten::5gp;
 
-use 5.008001;
 use strict;
 use warnings;
 
-use Carp;
-use JSON::PP;
+use Carp qw();
+use JSON::MaybeXS qw(decode_json);
+use URI ();
 
 use base qw( WWW::Shorten::generic Exporter );
 our @EXPORT = qw( makeashorterlink makealongerlink );
-our $VERSION = '1.02';
+our $VERSION = '1.030';
+$VERSION = eval $VERSION;
 
 my $service = 'http://5.gp/api/';
 
-sub makeashorterlink ($) {
-    my $url = shift or croak 'No URL passed to makeashorterlink';
+sub makeashorterlink {
+    my $url = shift or Carp::croak('No URL passed to makeashorterlink');
     my $ua = __PACKAGE__->ua();
-    my $resp = $ua->get($service .'short?longurl=' . $url);
+    my $uri = URI->new('http://5.gp/api/short');
+    $uri->query_form(longurl => $url);
+    my $res = $ua->get($uri);
 
-    if (!$resp->is_success) {
-        carp $resp->status_line;
-        return;
-    }
-    my $result = decode_json $resp->content;
-    return $result->{url};
+    return undef unless $res && $res->is_success;
+    my $content = decode_json($res->decoded_content);
+    return undef unless $content && $content->{url};
+    return $content->{url};
 }
 
-sub makealongerlink ($) {
-    my $url = shift or croak 'No 5.gp key / URL passed to makealongerlink';
+sub makealongerlink {
+    my $url = shift or Carp::croak('No 5.gp key / URL passed to makealongerlink');
     my $ua = __PACKAGE__->ua();
 
     $url = "http://5.gp/$url" unless $url =~ m!^http://!i;
+    my $uri = URI->new('http://5.gp/api/long');
+    $uri->query_form(shorturl => $url);
 
-    my $resp = $ua->get($service . 'long?shorturl=' . $url);
-
-    if (!$resp->is_success) {
-        carp $resp->status_line;
-        return;
-    }
-    my $result = decode_json $resp->content;
-    return $result->{$url}->{target_url};
+    my $res = $ua->get($uri);
+    return undef unless $res && $res->is_success;
+    my $content = decode_json($res->decoded_content);
+    return undef unless $content && $content->{$url}->{target_url};
+    return $content->{$url}->{target_url};
 }
 
 1;
@@ -48,67 +48,57 @@ __END__
 
 =head1 NAME
 
-WWW::Shorten::5gp - Perl interface to 5.gp - those are some short URLs!
+WWW::Shorten::5gp - Shorten URLs using L<http://5.gp>
 
 =head1 SYNOPSIS
 
-  use WWW::Shorten '5gp';
+    use strict;
+    use warnings;
 
-  $short_url = makeashorterlink($long_url);
-  $long_url  = makealongerlink($short_url);
+    use WWW::Shorten::5gp;
+    # use WWW::Shorten '5gp';  # or, this way
+
+    my $short_url = makeashorterlink('http://www.foo.com/some/long/url');
+    my $long_url  = makealongerlink($short_url);
 
 =head1 DESCRIPTION
 
-A Perl interface to the web site 5.gp. 5gp simply maintains
+A Perl interface to the web site L<http://5.gp>. The service simply maintains
 a database of long URLs, each of which has a unique identifier.
 
-5.gp has the benefit of being pretty reliable (so far) as well as
-having a really tiny domain name. The domain name makes tinyurl.com
-seem to be not so tiny at all!
-
-=head1 Functions
+=head1 FUNCTIONS
 
 =head2 makeashorterlink
 
-The function C<makeashorterlink> will call the 5gp web site passing
-it your long URL and will return the shorter 5gp version.
+The function C<makeashorterlink> will call the L<http://5gp> web site passing
+it your long URL and will return the shorter version.
 
 =head2 makealongerlink
 
 The function C<makealongerlink> does the reverse. C<makealongerlink>
-will accept as an argument either the full 5gp URL or just the
-5gp identifier.
+will accept as an argument either the full URL or just the identifier.
 
 If anything goes wrong, then either function will return C<undef>.
 
-=head2 EXPORT
+=head1 AUTHOR
 
-makeashorterlink, makealongerlink
+Michiel Beijen <F<michielb@cpan.org>>
 
-=head1 SUPPORT, THANKS and SUCH
+=head1 CONTRIBUTORS
 
-See the main L<WWW::Shorten> docs.
+=over
 
-=head1 LICENSE
+=item *
 
-This software is copyright (c) 2015 by Michiel Beijen.
+Chase Whitener <F<capoeirab@cpan.org>>
+
+=back
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2015 by Michiel Beijen <F<michielb@cpan.org>>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=head1 REPOSITORY
-
-L<https://github.com/mbeijen/WWW-Shorten-5gp>
-
-=head1 AUTHOR
-
-Michiel Beijen <michiel.beijen@gmail.com>
-
-I am not affiliated with 5.gp - I just like short domains!
-
-=head1 SEE ALSO
-
-L<WWW::Shorten>, L<perl>, L<http://5.gp/>
-
 =cut
-
