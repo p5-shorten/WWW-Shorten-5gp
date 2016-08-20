@@ -74,7 +74,7 @@
    "provides" : {
       "WWW::Shorten::5gp" : {
          "file" : "lib/WWW/Shorten/5gp.pm",
-         "version" : "1.030"
+         "version" : "1.031"
       }
    },
    "release_status" : "stable",
@@ -89,7 +89,7 @@
          "web" : "https://github.com/p5-shorten/WWW-Shorten-5gp"
       }
    },
-   "version" : "1.030",
+   "version" : "1.031",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.024000"
@@ -398,7 +398,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "v1.030",
+                  "tag" : "v1.031",
                   "tag_format" : "v%v",
                   "tag_message" : "v%v"
                },

@@ -1,6 +1,9 @@
 Revision history for perl module {{$dist->name}}
 
 {{$NEXT}}
+    - 
+
+1.030     2016-08-20
     - Updated test suite to only run live site tests in Author testing
     - Fixed round-tripping of large URLs with entities to be encoded
     - Made to use Dist::Zilla

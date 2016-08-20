@@ -9,7 +9,7 @@ use URI ();
 
 use base qw( WWW::Shorten::generic Exporter );
 our @EXPORT = qw( makeashorterlink makealongerlink );
-our $VERSION = '1.030';
+our $VERSION = '1.031';
 $VERSION = eval $VERSION;
 
 my $service = 'http://5.gp/api/';
