@@ -559,6 +559,9 @@
          "version" : "6.007"
       }
    },
+   "x_contributors" : [
+      "Chase Whitener <capoeirab@cpan.org>"
+   ],
    "x_serialization_backend" : "Cpanel::JSON::XS version 3.0217"
 }
 
