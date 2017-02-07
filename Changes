@@ -1,7 +1,8 @@
 Revision history for perl module {{$dist->name}}
 
 {{$NEXT}}
-    - 
+    - Add LICENSE to the repository
+    - Add CONTRIBUTING.md to the repository
 
 1.030     2016-08-20
     - Updated test suite to only run live site tests in Author testing
